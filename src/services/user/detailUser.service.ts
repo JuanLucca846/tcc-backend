@@ -1,3 +1,4 @@
+import { AppError } from "../../errors/AppError";
 import prismaClient from "../../prisma/prismaClient";
 
 class DetailUserService {
@@ -12,6 +13,10 @@ class DetailUserService {
         email: true,
       },
     });
+
+    if (!user) {
+      throw new AppError("User not found");
+    }
 
     return user;
   }
