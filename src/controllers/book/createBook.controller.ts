@@ -1,19 +1,28 @@
 import { Request, Response } from "express";
 import { CreateBookService } from "../../services/book/createBook.service";
+import { AppError } from "../../errors/AppError";
 
 class CreateBookController {
   async handle(req: Request, res: Response) {
     const createBookService = new CreateBookService();
 
-    const { title, author, quantity } = req.body;
+    const { title, author, category, cover, quantity } = req.body;
 
-    const book = await createBookService.execute({
-      title,
-      author,
-      quantity,
-    });
+    if (!req.file) {
+      throw new AppError("Error");
+    } else {
+      const { originalname, filename: cover } = req.file;
 
-    return res.json(book);
+      const book = await createBookService.execute({
+        title,
+        author,
+        category,
+        cover,
+        quantity,
+      });
+
+      return res.json(book);
+    }
   }
 }
 

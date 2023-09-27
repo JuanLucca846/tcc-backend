@@ -7,6 +7,8 @@ class ListBookService {
         id: true,
         title: true,
         author: true,
+        category: true,
+        cover: true,
         quantity: true,
       },
     });

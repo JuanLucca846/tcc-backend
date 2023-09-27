@@ -11,6 +11,7 @@ model Users {
   id Int @id @default(autoincrement())
 
   name     String
+  cpf      String  @unique
   email    String  @unique
   password String
   admin    Boolean @default(false)
@@ -27,6 +28,8 @@ model Book {
 
   title    String
   author   String
+  category String
+  cover    String
   quantity Int
 
   created_at DateTime  @default(now())
