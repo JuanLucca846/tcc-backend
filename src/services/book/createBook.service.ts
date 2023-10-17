@@ -25,13 +25,15 @@ class CreateBookService {
       throw new AppError("This book is already registered");
     }
 
+    const quantityAsNumber = parseInt(quantity.toString(), 10);
+
     const newBook = await prismaClient.book.create({
       data: {
         title: title,
         author: author,
         category: category,
         cover: cover,
-        quantity: quantity,
+        quantity: quantityAsNumber,
       },
       select: {
         id: true,
