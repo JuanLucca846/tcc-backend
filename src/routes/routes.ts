@@ -9,6 +9,9 @@ import { ListBookController } from "../controllers/book/listBook.controller";
 import { RemoveBookController } from "../controllers/book/removeBook.controller";
 import { UpdateBookController } from "../controllers/book/updateBook.controller";
 import uploadConfig from "../config/multer";
+import { CreateBookingController } from "../controllers/userhasbooks/createBooking.controller";
+import { ListBookingController } from "../controllers/userhasbooks/listBooking.controller";
+import { ReturnBookingController } from "../controllers/userhasbooks/returnBooking.controller";
 
 const router = Router();
 
@@ -27,4 +30,17 @@ router.post(
 router.get("/book", isAuthenticated, new ListBookController().handle);
 router.delete("/book/:id", isAuthenticated, new RemoveBookController().handle);
 router.put("/book/:id", isAuthenticated, new UpdateBookController().handle);
+
+router.post("/rentbook", isAuthenticated, new CreateBookingController().handle);
+router.get(
+  "/user/:id/rentedbooks",
+  isAuthenticated,
+  new ListBookingController().handle
+);
+router.post(
+  "/returnrentedbook",
+  isAuthenticated,
+  new ReturnBookingController().handle
+);
+
 export default router;
