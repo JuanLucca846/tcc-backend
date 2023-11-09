@@ -5,12 +5,11 @@ interface BookRequest {
   title: string;
   author: string;
   category: string;
-  cover: string;
   quantity: number;
 }
 
 class CreateBookService {
-  async execute({ title, author, category, cover, quantity }: BookRequest) {
+  async execute({ title, author, category, quantity }: BookRequest) {
     if (title === "") {
       throw new AppError("Title required");
     }
@@ -32,7 +31,6 @@ class CreateBookService {
         title: title,
         author: author,
         category: category,
-        cover: cover,
         quantity: quantityAsNumber,
       },
       select: {

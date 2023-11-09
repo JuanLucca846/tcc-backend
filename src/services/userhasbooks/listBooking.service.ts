@@ -10,9 +10,33 @@ class ListBookingService {
       where: {
         userId,
       },
+      select: {
+        id: true,
+        userId: true,
+        bookId: true,
+        created_at: true,
+        updated_at: true,
+        book: {
+          select: {
+            title: true,
+            author: true,
+          },
+        },
+      },
     });
 
-    return rentedBooks;
+    const formattedRentedBooks = rentedBooks.map((booking) => {
+      return {
+        id: booking.id,
+        userId: booking.userId,
+        bookId: booking.bookId,
+        book: booking.book,
+        created_at: booking.created_at,
+        updated_at: booking.updated_at,
+      };
+    });
+
+    return formattedRentedBooks;
   }
 }
 

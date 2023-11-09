@@ -8,7 +8,6 @@ class ListBookService {
         title: true,
         author: true,
         category: true,
-        cover: true,
         quantity: true,
       },
     });

@@ -8,25 +8,17 @@ import { CreateBookController } from "../controllers/book/createBook.controller"
 import { ListBookController } from "../controllers/book/listBook.controller";
 import { RemoveBookController } from "../controllers/book/removeBook.controller";
 import { UpdateBookController } from "../controllers/book/updateBook.controller";
-import uploadConfig from "../config/multer";
 import { CreateBookingController } from "../controllers/userhasbooks/createBooking.controller";
 import { ListBookingController } from "../controllers/userhasbooks/listBooking.controller";
 import { ReturnBookingController } from "../controllers/userhasbooks/returnBooking.controller";
 
 const router = Router();
 
-const upload = multer(uploadConfig.upload("./tmp"));
-
 router.post("/users", new CreateUserController().handle);
 router.post("/login", new AuthUserController().handle);
 router.get("/users", isAuthenticated, new DetailUserController().handle);
 
-router.post(
-  "/book",
-  isAuthenticated,
-  upload.single("file"),
-  new CreateBookController().handle
-);
+router.post("/book", isAuthenticated, new CreateBookController().handle);
 router.get("/book", isAuthenticated, new ListBookController().handle);
 router.delete("/book/:id", isAuthenticated, new RemoveBookController().handle);
 router.put("/book/:id", isAuthenticated, new UpdateBookController().handle);
