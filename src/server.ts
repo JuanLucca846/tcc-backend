@@ -11,6 +11,7 @@ const port = process.env.PORT;
 server.use(express.json());
 server.use(cors());
 server.use(router);
+server.use("/tmp", express.static("tmp"));
 
 server.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof AppError) {

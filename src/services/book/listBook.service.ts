@@ -10,6 +10,8 @@ class ListBookService {
           author: true,
           category: true,
           quantity: true,
+          coverImage: true,
+          description: true,
         },
         skip: (_page - 1) * _limit,
         take: _limit,

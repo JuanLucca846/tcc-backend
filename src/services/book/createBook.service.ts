@@ -6,10 +6,19 @@ interface BookRequest {
   author: string;
   category: string;
   quantity: number;
+  description: string;
+  coverImage: string;
 }
 
 class CreateBookService {
-  async execute({ title, author, category, quantity }: BookRequest) {
+  async execute({
+    title,
+    author,
+    category,
+    quantity,
+    description,
+    coverImage,
+  }: BookRequest) {
     if (title === "") {
       throw new AppError("Title required");
     }
@@ -21,17 +30,19 @@ class CreateBookService {
     });
 
     if (checkIfTitleExist) {
-      throw new AppError("This book is already registered");
+      throw new AppError("Este livro já está cadastrado");
     }
 
     const quantityAsNumber = parseInt(quantity.toString(), 10);
 
     const newBook = await prismaClient.book.create({
       data: {
-        title: title,
-        author: author,
-        category: category,
+        title,
+        author,
+        category,
         quantity: quantityAsNumber,
+        description,
+        coverImage: `/tmp/${coverImage}`,
       },
       select: {
         id: true,
@@ -39,6 +50,8 @@ class CreateBookService {
         author: true,
         category: true,
         quantity: true,
+        description: true,
+        coverImage: true,
       },
     });
 

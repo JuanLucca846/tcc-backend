@@ -26,10 +26,12 @@ model Users {
 model Book {
   id Int @id @default(autoincrement())
 
-  title    String
-  author   String
-  category String
-  quantity Int
+  title       String
+  author      String
+  category    String
+  quantity    Int
+  description String
+  coverImage  String
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
