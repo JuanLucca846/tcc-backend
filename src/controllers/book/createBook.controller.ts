@@ -7,7 +7,8 @@ class CreateBookController {
   async handle(req: Request, res: Response) {
     const createBookService = new CreateBookService();
 
-    const { title, author, category, quantity, description } = req.body;
+    const { title, author, description, isbn, shelf, bookcase, categoryId } =
+      req.body;
 
     if (!req.file) {
       throw new AppError("Error");
@@ -17,10 +18,12 @@ class CreateBookController {
       const book = await createBookService.execute({
         title,
         author,
-        category,
-        quantity,
         description,
         coverImage,
+        isbn,
+        shelf,
+        bookcase,
+        categoryId,
       });
 
       res.status(201).json(book);

@@ -4,54 +4,62 @@ import prismaClient from "../../prisma/prismaClient";
 interface BookRequest {
   title: string;
   author: string;
-  category: string;
-  quantity: number;
   description: string;
   coverImage: string;
+  isbn: string;
+  shelf: string;
+  bookcase: string;
+  categoryId: string;
 }
 
 class CreateBookService {
   async execute({
     title,
     author,
-    category,
-    quantity,
     description,
     coverImage,
+    isbn,
+    shelf,
+    bookcase,
+    categoryId,
   }: BookRequest) {
     if (title === "") {
       throw new AppError("Title required");
     }
 
-    const checkIfTitleExist = await prismaClient.book.findFirst({
+    const checkIfIsbnExists = await prismaClient.books.findFirst({
       where: {
-        title,
+        isbn,
       },
     });
 
-    if (checkIfTitleExist) {
+    if (checkIfIsbnExists) {
       throw new AppError("Este livro já está cadastrado");
     }
 
-    const quantityAsNumber = parseInt(quantity.toString(), 10);
+    const categoryIdInt = parseInt(categoryId);
 
-    const newBook = await prismaClient.book.create({
+    const newBook = await prismaClient.books.create({
       data: {
         title,
         author,
-        category,
-        quantity: quantityAsNumber,
         description,
         coverImage: `/tmp/${coverImage}`,
+        isbn,
+        categoryId: categoryIdInt,
+        shelf,
+        bookcase,
       },
       select: {
         id: true,
         title: true,
         author: true,
-        category: true,
-        quantity: true,
         description: true,
         coverImage: true,
+        isbn: true,
+        shelf: true,
+        bookcase: true,
+        categoryId: true,
       },
     });
 

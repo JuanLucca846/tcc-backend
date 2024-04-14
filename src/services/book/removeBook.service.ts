@@ -7,7 +7,7 @@ interface RemoveBookRequest {
 
 class RemoveBookService {
   async execute({ book_id }: RemoveBookRequest) {
-    const checkIfBookExists = await prismaClient.book.findFirst({
+    const checkIfBookExists = await prismaClient.books.findFirst({
       where: {
         id: book_id,
       },
@@ -17,7 +17,7 @@ class RemoveBookService {
       throw new AppError("Book does not exist");
     }
 
-    const book = await prismaClient.book.delete({
+    const book = await prismaClient.books.delete({
       where: {
         id: book_id,
       },

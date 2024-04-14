@@ -3,20 +3,22 @@ import prismaClient from "../../prisma/prismaClient";
 class ListBookService {
   async execute(_page: number, _limit: number) {
     const [books, total] = await prismaClient.$transaction([
-      prismaClient.book.findMany({
+      prismaClient.books.findMany({
         select: {
           id: true,
           title: true,
           author: true,
-          category: true,
-          quantity: true,
+          categoryId: true,
           coverImage: true,
           description: true,
+          isbn: true,
+          shelf: true,
+          bookcase: true,
         },
         skip: (_page - 1) * _limit,
         take: _limit,
       }),
-      prismaClient.book.count(),
+      prismaClient.books.count(),
     ]);
 
     const totalPage = Math.ceil(total / _limit);

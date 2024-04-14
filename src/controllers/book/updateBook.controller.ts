@@ -5,7 +5,8 @@ class UpdateBookController {
   async handle(req: Request, res: Response) {
     const book_id = Number(req.params.id);
 
-    const { title, author, quantity } = req.body;
+    const { title, author, description, isbn, shelf, bookcase, categoryId } =
+      req.body;
 
     const updateBook = new UpdateBookService();
 
@@ -13,7 +14,11 @@ class UpdateBookController {
       book_id,
       title,
       author,
-      quantity,
+      description,
+      isbn,
+      shelf,
+      bookcase,
+      categoryId,
     });
 
     return res.json(book);

@@ -12,6 +12,14 @@ import { CreateBookingController } from "../controllers/userhasbooks/createBooki
 import { ListBookingController } from "../controllers/userhasbooks/listBooking.controller";
 import { ReturnBookingController } from "../controllers/userhasbooks/returnBooking.controller";
 import uploadConfig from "../config/multer";
+import { CreateCourseController } from "../controllers/course/createCourse.controller";
+import { ListCourseController } from "../controllers/course/listCourse.controller";
+import { RemoveCourseController } from "../controllers/course/removeCourse.controller";
+import { UpdateCourseController } from "../controllers/course/updateCourse.controller";
+import { CreateCategoryController } from "../controllers/category/createCategory.controller";
+import { ListCategoryController } from "../controllers/category/listCategory.controller";
+import { RemoveCategoryController } from "../controllers/category/removeCategory.controller";
+import { UpdateCategoryController } from "../controllers/category/updateCategory.controller";
 
 const router = Router();
 
@@ -42,5 +50,15 @@ router.post(
   isAuthenticated,
   new ReturnBookingController().handle
 );
+
+router.post("/course", new CreateCourseController().handle);
+router.get("/course", new ListCourseController().handle);
+router.delete("/course/:id", new RemoveCourseController().handle);
+router.put("/course/:id", new UpdateCourseController().handle);
+
+router.post("/category", new CreateCategoryController().handle);
+router.get("/category", new ListCategoryController().handle);
+router.delete("/category/:id", new RemoveCategoryController().handle);
+router.put("/category/:id", new UpdateCategoryController().handle);
 
 export default router;

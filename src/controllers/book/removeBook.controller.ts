@@ -5,9 +5,9 @@ class RemoveBookController {
   async handle(req: Request, res: Response) {
     const book_id = Number(req.params.id);
 
-    const removeBook = new RemoveBookService();
+    const removeBookService = new RemoveBookService();
 
-    const book = await removeBook.execute({
+    const book = await removeBookService.execute({
       book_id,
     });
 

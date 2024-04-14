@@ -11,45 +11,90 @@ model Users {
   id Int @id @default(autoincrement())
 
   name     String
-  cpf      String  @unique
   email    String  @unique
   password String
   admin    Boolean @default(false)
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
-  Booking    Booking[]
+  course    Courses @relation(fields: [courseId], references: [id])
+  courseId Int
+  reservations Reservations[]
+  loans Loans[]
 
   @@map("users")
 }
 
-model Book {
+model Books {
   id Int @id @default(autoincrement())
 
+  isbn        String @unique
+  shelf       String
+  bookcase    String
   title       String
   author      String
-  category    String
-  quantity    Int
   description String
   coverImage  String
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
-  Booking    Booking[]
-
+  category Categories @relation(fields: [categoryId], references: [id])
+  categoryId Int
+  reservations Reservations[]
+  loans Loans[]
+  
   @@map("books")
 }
 
-model Booking {
-  id     Int @id @default(autoincrement())
-  userId Int
-  bookId Int
+model Courses {
+  id Int @id @default(autoincrement())
 
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  name String
+  
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  users Users[] 
 
-  users Users @relation(fields: [userId], references: [id])
-  book  Book  @relation(fields: [bookId], references: [id])
+  @@map("courses")
+}
 
-  @@unique([userId, bookId])
+model Categories {
+  id Int @id @default(autoincrement())
+
+  name String
+  
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  books Books[]
+
+  @@map("categories")
+}
+
+model Reservations {
+  id Int @id @default(autoincrement())
+
+  status      String 
+  reservedAt  DateTime @default(now())
+   
+  user        Users   @relation(fields: [userId], references: [id])
+  userId      Int
+  book        Books   @relation(fields: [bookId], references: [id])
+  bookId      Int
+
+  @@map("reservations")
+}
+
+model Loans {
+  id Int @id @default(autoincrement())
+
+  borrowedAt    DateTime @default(now())
+  dueDate       DateTime
+  returnedAt    DateTime?
+
+  user          Users   @relation(fields: [userId], references: [id])
+  userId        Int
+  book          Books   @relation(fields: [bookId], references: [id])
+  bookId        Int
+
+  @@map("loans")
 }
