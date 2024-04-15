@@ -8,9 +8,9 @@ import { CreateBookController } from "../controllers/book/createBook.controller"
 import { ListBookController } from "../controllers/book/listBook.controller";
 import { RemoveBookController } from "../controllers/book/removeBook.controller";
 import { UpdateBookController } from "../controllers/book/updateBook.controller";
-import { CreateBookingController } from "../controllers/userhasbooks/createBooking.controller";
-import { ListBookingController } from "../controllers/userhasbooks/listBooking.controller";
-import { ReturnBookingController } from "../controllers/userhasbooks/returnBooking.controller";
+import { CreateReservationController } from "../controllers/reservation/createReservation.controller";
+import { ListReservationController } from "../controllers/reservation/listReservation.controller";
+import { CancelReservationController } from "../controllers/reservation/cancelReservation.controller";
 import uploadConfig from "../config/multer";
 import { CreateCourseController } from "../controllers/course/createCourse.controller";
 import { ListCourseController } from "../controllers/course/listCourse.controller";
@@ -20,6 +20,8 @@ import { CreateCategoryController } from "../controllers/category/createCategory
 import { ListCategoryController } from "../controllers/category/listCategory.controller";
 import { RemoveCategoryController } from "../controllers/category/removeCategory.controller";
 import { UpdateCategoryController } from "../controllers/category/updateCategory.controller";
+import { CloseReservationController } from "../controllers/reservation/closeReservation.controller";
+import { ReturnLoanController } from "../controllers/loan/returnLoan.controller";
 
 const router = Router();
 
@@ -39,17 +41,12 @@ router.get("/book", isAuthenticated, new ListBookController().handle);
 router.delete("/book/:id", isAuthenticated, new RemoveBookController().handle);
 router.put("/book/:id", isAuthenticated, new UpdateBookController().handle);
 
-router.post("/rentbook", isAuthenticated, new CreateBookingController().handle);
-router.get(
-  "/user/:id/rentedbooks",
-  isAuthenticated,
-  new ListBookingController().handle
-);
-router.post(
-  "/returnrentedbook",
-  isAuthenticated,
-  new ReturnBookingController().handle
-);
+router.post("/reservations", new CreateReservationController().handle);
+router.get("/user/:id/reservations", new ListReservationController().handle);
+router.delete("/reservations/:id", new CancelReservationController().handle);
+router.post("/reservations/:id/close", new CloseReservationController().handle);
+
+router.put("/loans/:id/return", new ReturnLoanController().handle);
 
 router.post("/course", new CreateCourseController().handle);
 router.get("/course", new ListCourseController().handle);
