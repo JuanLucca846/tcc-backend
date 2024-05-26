@@ -22,6 +22,7 @@ import { RemoveCategoryController } from "../controllers/category/removeCategory
 import { UpdateCategoryController } from "../controllers/category/updateCategory.controller";
 import { CloseReservationController } from "../controllers/reservation/closeReservation.controller";
 import { ReturnLoanController } from "../controllers/loan/returnLoan.controller";
+import { StatusController } from "../controllers/status/status.controller";
 
 const router = Router();
 
@@ -37,7 +38,7 @@ router.post(
   upload.single("file"),
   new CreateBookController().handle
 );
-router.get("/book", isAuthenticated, new ListBookController().handle);
+router.get("/book", new ListBookController().handle);
 router.delete("/book/:id", isAuthenticated, new RemoveBookController().handle);
 router.put("/book/:id", isAuthenticated, new UpdateBookController().handle);
 
@@ -57,5 +58,7 @@ router.post("/category", new CreateCategoryController().handle);
 router.get("/category", new ListCategoryController().handle);
 router.delete("/category/:id", new RemoveCategoryController().handle);
 router.put("/category/:id", new UpdateCategoryController().handle);
+
+router.get("/status", new StatusController().handle);
 
 export default router;
