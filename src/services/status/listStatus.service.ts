@@ -6,7 +6,7 @@ class StatusService {
       const totalBooks = await prismaClient.books.count();
       const totalPendingBooks = await prismaClient.loans.count();
       const totalUsers = await prismaClient.users.count();
-      const totalBorrowedBooks = await prismaClient.reservations.count();
+      const totalBorrowedBooks = await prismaClient.loans.count();
 
       return {
         totalBooks,

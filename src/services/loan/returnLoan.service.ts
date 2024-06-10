@@ -2,27 +2,24 @@ import { AppError } from "../../errors/AppError";
 import prismaClient from "../../prisma/prismaClient";
 
 interface ReturnLoanRequest {
-  loanId: number;
+  loanId: number,
 }
 
 class ReturnLoanService {
   async execute({ loanId }: ReturnLoanRequest) {
-    const loan = await prismaClient.loans.findUnique({
-      where: { id: loanId },
+    
+    const returnLoan = await prismaClient.loans.update({
+      where: {id: loanId},
+        data: {
+        returnedAt: new Date()
+      },
     });
 
-    if (!loan) {
-      throw new AppError("Loan not found");
-    }
+    await prismaClient.books.update({
+      where: { id: returnLoan.bookId},
+      data: { status: "Disponível",}
+    })
 
-    if (loan.returnedAt) {
-      throw new AppError("Loan has already been returned");
-    }
-
-    await prismaClient.loans.update({
-      where: { id: loanId },
-      data: { returnedAt: new Date() },
-    });
   }
 }
 

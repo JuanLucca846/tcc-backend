@@ -23,6 +23,9 @@ import { UpdateCategoryController } from "../controllers/category/updateCategory
 import { CloseReservationController } from "../controllers/reservation/closeReservation.controller";
 import { ReturnLoanController } from "../controllers/loan/returnLoan.controller";
 import { StatusController } from "../controllers/status/status.controller";
+import { CreateLoanController } from "../controllers/loan/createLoan.controller";
+import { ListReservationControllerAdmin } from "../controllers/status/listReservationAdmin.controller";
+import { ListLoanControllerAdmin } from "../controllers/status/listLoanAdmin.controller";
 
 const router = Router();
 
@@ -42,12 +45,15 @@ router.get("/book", new ListBookController().handle);
 router.delete("/book/:id", isAuthenticated, new RemoveBookController().handle);
 router.put("/book/:id", isAuthenticated, new UpdateBookController().handle);
 
-router.post("/reservations", new CreateReservationController().handle);
-router.get("/user/:id/reservations", new ListReservationController().handle);
-router.delete("/reservations/:id", new CancelReservationController().handle);
-router.post("/reservations/:id/close", new CloseReservationController().handle);
+router.post("/reservations", isAuthenticated, new CreateReservationController().handle);
+router.get("/user/reservations", isAuthenticated, new ListReservationController().handle);
+router.get("/reservationsAdmin", isAuthenticated, new ListReservationControllerAdmin().handle);
+router.delete("/reservations/:id", isAuthenticated, new CancelReservationController().handle);
+router.post("/reservationsClose/:id", isAuthenticated, new CloseReservationController().handle);
 
-router.put("/loans/:id/return", new ReturnLoanController().handle);
+router.get("/loans", isAuthenticated, new ListLoanControllerAdmin().handle)
+router.post("/loan", isAuthenticated, new CreateLoanController().handle)
+router.put("/returnLoan/:id", isAuthenticated, new ReturnLoanController().handle);
 
 router.post("/course", new CreateCourseController().handle);
 router.get("/course", new ListCourseController().handle);

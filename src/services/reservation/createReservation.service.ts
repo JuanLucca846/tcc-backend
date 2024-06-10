@@ -34,8 +34,13 @@ class CreateReservationService {
       data: {
         userId,
         bookId,
-        status,
+        status: 'reserved',
       },
+    });
+
+    await prismaClient.books.update({
+      where: {id: bookId},
+      data: {status: "Reservado"},
     });
 
     return newReservation;

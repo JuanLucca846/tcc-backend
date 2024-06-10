@@ -35,6 +35,7 @@ model Books {
   author      String
   description String
   coverImage  String
+  status      String @default("Disponível")
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt

@@ -27,6 +27,11 @@ class CloseReservationService {
       },
     });
 
+    await prismaClient.books.update({
+      where: { id: reservation.bookId },
+      data: { status: "Emprestado" },
+    });
+
     await prismaClient.reservations.delete({ where: { id: reservationId } });
 
     return newLoan;

@@ -9,7 +9,7 @@ interface BookRequest {
   isbn: string;
   shelf: string;
   bookcase: string;
-  categoryId: string;
+  categoryId: number;
 }
 
 class CreateBookService {
@@ -37,7 +37,9 @@ class CreateBookService {
       throw new AppError("Este livro já está cadastrado");
     }
 
-    const categoryIdInt = parseInt(categoryId);
+    
+
+    
 
     const newBook = await prismaClient.books.create({
       data: {
@@ -46,7 +48,7 @@ class CreateBookService {
         description,
         coverImage: `/tmp/${coverImage}`,
         isbn,
-        categoryId: categoryIdInt,
+        categoryId,
         shelf,
         bookcase,
       },
@@ -62,6 +64,8 @@ class CreateBookService {
         categoryId: true,
       },
     });
+
+    
 
     return newBook;
   }

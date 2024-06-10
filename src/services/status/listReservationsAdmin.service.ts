@@ -4,17 +4,15 @@ export interface rentRequest {
   userId: number;
 }
 
-class ListReservationService {
-  async execute({ userId }: rentRequest) {
-    const reservedBooks = await prismaClient.reservations.findMany({
-      where: {
-        userId,
-      },
+class ListReservationServiceAdmin {
+  async execute() {
+    const reservedBooks = await prismaClient.reservations.findMany({  
       select: {
         id: true,
         book: {
           select: {
             id: true,
+            isbn: true,
             title: true,
             author: true,
             coverImage: true,
@@ -26,7 +24,8 @@ class ListReservationService {
           select:{
             name: true,
           }
-        }
+        },
+        reservedAt: true,
       },
     });
 
@@ -34,4 +33,4 @@ class ListReservationService {
   }
 }
 
-export { ListReservationService };
+export { ListReservationServiceAdmin };

@@ -1,20 +1,18 @@
 import prismaClient from "../../prisma/prismaClient";
 
-export interface rentRequest {
+export interface loanRequest {
   userId: number;
 }
 
-class ListReservationService {
-  async execute({ userId }: rentRequest) {
-    const reservedBooks = await prismaClient.reservations.findMany({
-      where: {
-        userId,
-      },
+class ListLoanServiceAdmin {
+  async execute() {
+    const loanedBooks = await prismaClient.loans.findMany({  
       select: {
         id: true,
         book: {
           select: {
             id: true,
+            isbn: true,
             title: true,
             author: true,
             coverImage: true,
@@ -26,12 +24,14 @@ class ListReservationService {
           select:{
             name: true,
           }
-        }
+        },
+        dueDate: true,
+        returnedAt: true,
       },
     });
 
-    return reservedBooks;
+    return loanedBooks;
   }
 }
 
-export { ListReservationService };
+export { ListLoanServiceAdmin };
