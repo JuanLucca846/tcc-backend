@@ -26,6 +26,7 @@ import { StatusController } from "../controllers/status/status.controller";
 import { CreateLoanController } from "../controllers/loan/createLoan.controller";
 import { ListReservationControllerAdmin } from "../controllers/status/listReservationAdmin.controller";
 import { ListLoanControllerAdmin } from "../controllers/status/listLoanAdmin.controller";
+import { ListLoanController } from "../controllers/loan/listLoan.controller";
 
 const router = Router();
 
@@ -52,6 +53,7 @@ router.delete("/reservations/:id", isAuthenticated, new CancelReservationControl
 router.post("/reservationsClose/:id", isAuthenticated, new CloseReservationController().handle);
 
 router.get("/loans", isAuthenticated, new ListLoanControllerAdmin().handle)
+router.get("/user/loans", isAuthenticated, new ListLoanController().handle)
 router.post("/loan", isAuthenticated, new CreateLoanController().handle)
 router.put("/returnLoan/:id", isAuthenticated, new ReturnLoanController().handle);
 

@@ -1,9 +1,5 @@
 import prismaClient from "../../prisma/prismaClient";
 
-export interface loanRequest {
-  userId: number;
-}
-
 class ListLoanServiceAdmin {
   async execute() {
     const loanedBooks = await prismaClient.loans.findMany({  

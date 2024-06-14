@@ -1,9 +1,5 @@
 import prismaClient from "../../prisma/prismaClient";
 
-export interface rentRequest {
-  userId: number;
-}
-
 class ListReservationServiceAdmin {
   async execute() {
     const reservedBooks = await prismaClient.reservations.findMany({  
