@@ -2,7 +2,7 @@ import prismaClient from "../../prisma/prismaClient";
 
 class ListReservationServiceAdmin {
   async execute() {
-    const reservedBooks = await prismaClient.reservations.findMany({  
+    const reservedBooks = await prismaClient.reservations.findMany({
       select: {
         id: true,
         book: {
@@ -17,9 +17,9 @@ class ListReservationServiceAdmin {
           },
         },
         user: {
-          select:{
+          select: {
             name: true,
-          }
+          },
         },
         reservedAt: true,
       },

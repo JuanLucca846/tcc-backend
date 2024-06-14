@@ -12,8 +12,8 @@ interface UserRequest {
 class CreateUserService {
   async execute({ name, email, password, courseId }: UserRequest) {
     const emailRegex = /^[^\s@]+@nossabiblioteca\.com$/;
-    const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
+    const strongPasswordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
     if (!email) {
       throw new AppError("Email required");
@@ -33,8 +33,8 @@ class CreateUserService {
       throw new AppError("User already exists");
     }
 
-    if (!strongPasswordRegex.test(password)){
-      throw new AppError("Invalid password format")
+    if (!strongPasswordRegex.test(password)) {
+      throw new AppError("Invalid password format");
     }
 
     const passwordHash = await hash(password, 10);

@@ -8,15 +8,15 @@ class StatusService {
       const totalPendingBooks = await prismaClient.loans.count({
         where: {
           returnedAt: null,
-          dueDate:{
+          dueDate: {
             lt: new Date(),
-          }
-        }
+          },
+        },
       });
       const totalBorrowedBooks = await prismaClient.loans.count({
-        where:{
-          returnedAt: null,  
-        }
+        where: {
+          returnedAt: null,
+        },
       });
 
       return {

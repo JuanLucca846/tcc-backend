@@ -6,14 +6,13 @@ class CreateBookController {
   async handle(req: Request, res: Response) {
     const createBookService = new CreateBookService();
 
-    const { title, author, description, isbn, shelf, bookcase, categoryId } = req.body;
+    const { title, author, description, isbn, shelf, bookcase, categoryId } =
+      req.body;
 
     if (!req.file) {
       throw new AppError("Error");
     } else {
       const { originalname, filename: coverImage } = req.file;
-
-      
 
       const book = await createBookService.execute({
         title,

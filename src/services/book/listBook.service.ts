@@ -17,13 +17,13 @@ class ListBookService {
       where.isbn = { contains: isbn };
     }
     if (title) {
-      where.title = { contains: title, mode: 'insensitive' };
+      where.title = { contains: title, mode: "insensitive" };
     }
     if (author) {
-      where.author = { contains: author, mode: 'insensitive' };
+      where.author = { contains: author, mode: "insensitive" };
     }
     if (category) {
-      where.category = { name: { contains: category, mode: 'insensitive' } };
+      where.category = { name: { contains: category, mode: "insensitive" } };
     }
 
     const [books, total] = await prismaClient.$transaction([

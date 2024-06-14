@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { ReturnLoanService } from "../../services/loan/returnLoan.service";
 
-
 class ReturnLoanController {
   async handle(req: Request, res: Response) {
     const { id } = req.params;

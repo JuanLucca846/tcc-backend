@@ -2,7 +2,7 @@ import prismaClient from "../../prisma/prismaClient";
 
 class ListLoanServiceAdmin {
   async execute() {
-    const loanedBooks = await prismaClient.loans.findMany({  
+    const loanedBooks = await prismaClient.loans.findMany({
       select: {
         id: true,
         book: {
@@ -17,9 +17,9 @@ class ListLoanServiceAdmin {
           },
         },
         user: {
-          select:{
+          select: {
             name: true,
-          }
+          },
         },
         dueDate: true,
         returnedAt: true,

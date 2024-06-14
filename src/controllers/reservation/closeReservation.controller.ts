@@ -8,7 +8,7 @@ class CloseReservationController {
     const closeReservationService = new CloseReservationService();
 
     const loan = await closeReservationService.execute({
-      reservationId: parseInt(id, 10), 
+      reservationId: parseInt(id, 10),
     });
     res.json({ loan });
   }

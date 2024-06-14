@@ -5,7 +5,7 @@ class ListReservationController {
   async handle(req: Request, res: Response) {
     const listReservationService = new ListReservationService();
 
-    const userId = Number(req.user_id); // obtendo userId do token JWT
+    const userId = Number(req.user_id);
 
     const reservedBooks = await listReservationService.execute({ userId });
 

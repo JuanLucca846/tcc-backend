@@ -23,10 +23,10 @@ class ListReservationService {
           },
         },
         user: {
-          select:{
+          select: {
             name: true,
-          }
-        }
+          },
+        },
       },
     });
 

@@ -37,10 +37,6 @@ class CreateBookService {
       throw new AppError("Este livro já está cadastrado");
     }
 
-    
-
-    
-
     const newBook = await prismaClient.books.create({
       data: {
         title,
@@ -64,8 +60,6 @@ class CreateBookService {
         categoryId: true,
       },
     });
-
-    
 
     return newBook;
   }
